@@ -11,7 +11,15 @@ import java.util.Date
 import java.util.UUID
 
 class CrimeDetailFragment : Fragment(){
-    private lateinit var binding: FragmentCrimeDetailBinding
+
+    // nullable backing property
+    private var _binding: FragmentCrimeDetailBinding? = null
+
+    // binding becomes a computed property by using checkNotNull()
+    private val binding
+        get() = checkNotNull(_binding) {
+            "Cannot access binding because it is null. Is the view visible"
+        }
 
     private lateinit var crime: Crime
 
@@ -30,7 +38,7 @@ class CrimeDetailFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCrimeDetailBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentCrimeDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -51,5 +59,12 @@ class CrimeDetailFragment : Fragment(){
                 crime = crime.copy(isSolved = isChecked)
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        // free memory
+        _binding = null
     }
 }
