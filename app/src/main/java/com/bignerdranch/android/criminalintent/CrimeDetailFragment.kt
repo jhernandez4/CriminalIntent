@@ -18,7 +18,7 @@ class CrimeDetailFragment : Fragment(){
     // binding becomes a computed property by using checkNotNull()
     private val binding
         get() = checkNotNull(_binding) {
-            "Cannot access binding because it is null. Is the view visible"
+            "Cannot access binding because it is null. Is the view visible?"
         }
 
     private lateinit var crime: Crime
